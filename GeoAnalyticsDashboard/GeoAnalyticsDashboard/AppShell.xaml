@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="GeoAnalyticsDashboard.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:GeoAnalyticsDashboard"
+    xmlns:views="clr-namespace:GeoAnalyticsDashboard.Views"
+    Title="GeoAnalyticsDashboard">
+
+    <TabBar>
+        <ShellContent
+            ContentTemplate="{DataTemplate views:DesktopDashboardPage}"
+            x:Name="DesktopContent" />
+        <ShellContent
+            ContentTemplate="{DataTemplate views:MobileDashboardPage}"
+            x:Name="MobileContent" />
+    </TabBar>
+
+</Shell>
