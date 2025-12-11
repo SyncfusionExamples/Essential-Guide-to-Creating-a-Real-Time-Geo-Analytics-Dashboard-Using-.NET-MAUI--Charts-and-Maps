@@ -1,4 +1,4 @@
-# Essential-Guide-to-Creating-a-Real-Time-Geo-Analytics-Dashboard-Using-.NET-MAUI-Charts-and-Maps
+# Essential-Guide-to-Creating-a-Geo-Analytics-Dashboard-Using-.NET-MAUI-Charts-and-Maps
 
 ## Overview
 The EV Geo Analytics Dashboard showcases a cross-platform (.NET MAUI) experience that turns electric vehicle (EV) adoption data into actionable insights using Syncfusion® .NET MAUI [Maps](https://www.syncfusion.com/maui-controls/maui-maps) and [Charts](https://www.syncfusion.com/maui-controls/maui-cartesian-charts). It emphasizes clarity, interactivity, and a responsive layout for decision-making.
@@ -41,4 +41,4 @@ Two‑column, two‑row Grid layout:
 ## Troubleshooting
 - If you are facing a path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.Path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
-Refer to the blog for step‑by‑step guidance on creating a Real‑Time Geo Analytics Dashboard using .NET MAUI Charts and Syncfusion® Maps.
+Refer to the blog for step‑by‑step guidance on creating a Geo Analytics Dashboard using .NET MAUI Charts and Syncfusion® Maps.
