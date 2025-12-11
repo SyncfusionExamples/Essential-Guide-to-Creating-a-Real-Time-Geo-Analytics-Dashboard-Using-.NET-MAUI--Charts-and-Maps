@@ -31,7 +31,7 @@
 
 
             <Grid Grid.Row="1" RowDefinitions="*,Auto" ColumnDefinitions="2*,*" ColumnSpacing="16" RowSpacing="16">
-                <Border Grid.Row="0" Grid.Column="0" Stroke="#e2e8f0" StrokeThickness="1"  HeightRequest="360" BackgroundColor="White" Padding="8" StrokeShape="RoundRectangle 10">
+                <Border Grid.Row="0" Grid.Column="0" Stroke="#e2e8f0" StrokeThickness="1"  HeightRequest="{OnPlatform Default=360,MacCatalyst=600}" BackgroundColor="White" Padding="8" StrokeShape="RoundRectangle 10">
                     <Grid RowDefinitions="Auto,*">
                         <Label Grid.Row="0" Text="EV Adoption by Country (Battery Share)" FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
                         <map:SfMaps Grid.Row="1" Margin="0,0,0,0">
@@ -76,7 +76,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="0" Grid.Column="1" Stroke="#e2e8f0"  HeightRequest="360" StrokeThickness="1" BackgroundColor="White" Padding="16" StrokeShape="RoundRectangle 10">
+                <Border Grid.Row="0" Grid.Column="1" Stroke="#e2e8f0"  HeightRequest="{OnPlatform Default=360,MacCatalyst=600}" StrokeThickness="1" BackgroundColor="White" Padding="16" StrokeShape="RoundRectangle 10">
                     <Grid RowDefinitions="Auto,*">
                         <VerticalStackLayout Grid.Row="0" Spacing="14">
                             <Border  Padding="12" Stroke="#e5e7eb" BackgroundColor="#f8fafc">
@@ -101,8 +101,8 @@
                             </Border>
                         </VerticalStackLayout>
 
-                        <Grid Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" Padding="0">
-                            <chart:SfCircularChart HeightRequest="250">
+                        <Grid Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" Padding="0,10,0,0">
+                            <chart:SfCircularChart WidthRequest="{OnPlatform Default=320,MacCatalyst=490}" HeightRequest="{OnPlatform Default=250,MacCatalyst=490}">
                                 <chart:RadialBarSeries ItemsSource="{Binding SelectedMix}" ShowDataLabels="True" LabelContext="Percentage" XBindingPath="Name" YBindingPath="Value"
                                                       InnerRadius="0.35" EnableTooltip="True" CapStyle="EndCurve"  EnableAnimation="True">
                                 </chart:RadialBarSeries>
@@ -114,7 +114,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="0" Stroke="#e2e8f0" HeightRequest="300" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
+                <Border Grid.Row="1" Grid.Column="0" Stroke="#e2e8f0" HeightRequest="{OnPlatform Default=300,MacCatalyst=560}" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
                     <Grid>
                         <Label Text="{Binding SelectedCountryName, StringFormat='EV Trend – {0}'}"
                                FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
@@ -141,7 +141,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="1" Grid.Column="1" Stroke="#e2e8f0" HeightRequest="300" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
+                <Border Grid.Row="1" Grid.Column="1" Stroke="#e2e8f0" HeightRequest="{OnPlatform Default=300,MacCatalyst=560}" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
                     <Grid>
                         <Label Text="Top 5 Countries by Battery Share" FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
                         <chart:SfCircularChart Margin="0,24,0,0">
