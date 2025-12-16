@@ -7,6 +7,11 @@ using System.Windows.Input;
 
 namespace GeoAnalyticsDashboard;
 
+/// <summary>
+/// View model for the desktop geo analytics dashboard. Loads EV adoption data from CSV, exposes
+/// observable series and collections consumed by Syncfusion Maps/Charts, tracks selection state,
+/// computes YoY growth and powertrain mix, and provides commands to toggle insights/trend views.
+/// </summary>
 public class MainPageViewModel : INotifyPropertyChanged
 {
     public ObservableCollection<CountryAdoptionSnapshot> Countries { get; } = new();
@@ -85,7 +90,12 @@ public class MainPageViewModel : INotifyPropertyChanged
 
     }
 
-    public async Task LoadCsvData(string fileNameInRaw)
+/// <summary>
+/// Loads and parses the EV adoption CSV from the app package, builds latest-year country snapshot
+/// collections for the map and top-5 pie, and initializes the first selection for details/trends.
+/// </summary>
+/// <param name="fileNameInRaw">CSV file name as packaged in the application.</param>
+public async Task LoadCsvData(string fileNameInRaw)
     {
         using var stream = await FileSystem.OpenAppPackageFileAsync(fileNameInRaw);
         using var reader = new StreamReader(stream);
@@ -140,7 +150,13 @@ public class MainPageViewModel : INotifyPropertyChanged
 
     }
 
-    public void ApplySelection(CountryAdoptionSnapshot cs)
+/// <summary>
+/// Applies the selected country. Updates insight fields, rebuilds Battery/Plug-in trend series,
+/// computes YoY growth from the most recent two years, regenerates powertrain mix, and updates
+/// the actionable recommendation text.
+/// </summary>
+/// <param name="cs">Country snapshot representing latest-year values for a country.</param>
+public void ApplySelection(CountryAdoptionSnapshot cs)
     {
         if (cs == null) return;
 
