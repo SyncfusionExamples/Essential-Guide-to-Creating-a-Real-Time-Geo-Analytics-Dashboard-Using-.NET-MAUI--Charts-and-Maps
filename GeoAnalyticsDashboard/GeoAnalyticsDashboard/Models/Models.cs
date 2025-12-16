@@ -1,4 +1,3 @@
-
 namespace GeoAnalyticsDashboard
 {
     /// <summary>
@@ -63,5 +62,4 @@ namespace GeoAnalyticsDashboard
         /// <summary>Slice value in percent.</summary>
         public double Value { get; set; }
     }
-
 }
