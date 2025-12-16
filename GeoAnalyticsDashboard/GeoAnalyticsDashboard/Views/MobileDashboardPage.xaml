@@ -48,6 +48,7 @@
                                                SelectedShapeStrokeThickness="2"
                                                ShowDataLabels="True"
                                                ShapeColorValuePath="BatteryShare">
+                                    
                                     <map:MapShapeLayer.ColorMappings>
                                         <map:RangeColorMapping From="0" To="5" Color="#dbeafe" Text="0–5%"/>
                                         <map:RangeColorMapping From="5" To="15" Color="#93c5fd" Text="5–15%"/>
