@@ -7,6 +7,7 @@
     xmlns:chart="clr-namespace:Syncfusion.Maui.Charts;assembly=Syncfusion.Maui.Charts"
     xmlns:button="clr-namespace:Syncfusion.Maui.Buttons;assembly=Syncfusion.Maui.Buttons"
     xmlns:bottomSheet="clr-namespace:Syncfusion.Maui.Toolkit.BottomSheet;assembly=Syncfusion.Maui.Toolkit"
+    xmlns:tabView="clr-namespace:Syncfusion.Maui.TabView;assembly=Syncfusion.Maui.TabView"
     xmlns:local="clr-namespace:GeoAnalyticsDashboard"
     Padding="16">
 
@@ -17,44 +18,59 @@
     <Grid>
         <ScrollView Orientation="Vertical">
             <VerticalStackLayout Spacing="16">
-                <HorizontalStackLayout Spacing="0"
-                            HorizontalOptions="Start"
-                            VerticalOptions="Center">
-                    <!-- Title icon chip -->
-                    <Path  Fill="#0f172a" WidthRequest="45" HeightRequest="45" Data="M15.546991,6.2789833L30.027005,6.2789833 30.027005,12.246996 31.999986,12.246996 31.999986,18.141976 30.027005,18.141976 30.027005,24.051983 10.289006,24.051983 10.289006,22.08299 12.25702,22.08299 12.802001,22.08299 28.058015,22.08299 28.058015,18.141976 28.05403,18.141976 28.05403,12.246996 28.058015,12.246996 28.058015,8.2489831 16.303032,8.2489831C16.184014,7.786978 16.064996,7.3250031 15.876031,6.8829865 15.788019,6.6759862 15.657038,6.480979 15.546991,6.2789833z M7.2908282,3.2920065L3.3867488,7.4790155C3.1087427,7.7760161,2.9157391,8.0430167,2.7917366,8.2940171L2.7777362,8.3240173C2.3497276,9.2090192 2.1807241,10.207021 2.2897263,11.213023 2.5306687,13.441465 4.1954684,15.262973 6.320055,15.697015L6.3829889,15.708411 6.3829889,8.3199975 8.3820268,8.3199975 8.3820268,15.687145 8.5701938,15.644285C9.4486807,15.420981 10.255263,14.959281 10.913902,14.29103 11.879922,13.310028 12.412932,12.004025 12.412933,10.613022 12.412932,9.8930206 12.27093,9.1960192 11.990924,8.5420177 11.831921,8.170017 11.577915,7.7980162 11.234908,7.4390155z M7.2748275,0L12.869942,5.8830122C13.363952,6.4020133 13.78296,6.9940145 14.065966,7.6550159 14.453974,8.5610178 14.668978,9.5620198 14.668978,10.613022 14.668978,14.316249 12.002806,17.388006 8.5115747,17.959583L8.3820268,17.978983 8.3820268,24.051973 6.3829889,24.051973 6.3829889,17.992398 6.1856332,17.965751C2.9698515,17.457594 0.40315628,14.759468 0.045681,11.456024 -0.11632252,9.9590206 0.15968323,8.5380177 0.76069546,7.309015 0.76269531,7.3060151 0.76369476,7.3040152 0.76469517,7.3010151 1.0127001,6.7970141 1.3547068,6.3490131 1.7357149,5.9400123z"/>
+
+                <!-- Title -->
+                <HorizontalStackLayout Spacing="0" HorizontalOptions="Start" VerticalOptions="Center">
+                    <!-- Icon in primary green -->
+                    <Path Fill="#166534" WidthRequest="45" HeightRequest="45"
+                          Data="M15.546991,6.2789833L30.027005,6.2789833 30.027005,12.246996 31.999986,12.246996 31.999986,18.141976 30.027005,18.141976 30.027005,24.051983 10.289006,24.051983 10.289006,22.08299 12.25702,22.08299 12.802001,22.08299 28.058015,22.08299 28.058015,18.141976 28.05403,18.141976 28.05403,12.246996 28.058015,12.246996 28.058015,8.2489831 16.303032,8.2489831C16.184014,7.786978 16.064996,7.3250031 15.876031,6.8829865 15.788019,6.6759862 15.657038,6.480979 15.546991,6.2789833z M7.2908282,3.2920065L3.3867488,7.4790155C3.1087427,7.7760161,2.9157391,8.0430167,2.7917366,8.2940171L2.7777362,8.3240173C2.3497276,9.2090192 2.1807241,10.207021 2.2897263,11.213023 2.5306687,13.441465 4.1954684,15.262973 6.320055,15.697015L6.3829889,15.708411 6.3829889,8.3199975 8.3820268,8.3199975 8.3820268,15.687145 8.5701938,15.644285C9.4486807,15.420981 10.255263,14.959281 10.913902,14.29103 11.879922,13.310028 12.412932,12.004025 12.412933,10.613022 12.412932,9.8930206 12.27093,9.1960192 11.990924,8.5420177 11.831921,8.170017 11.577915,7.7980162 11.234908,7.4390155z"/>
                     <Label Text="Geo Analytics Dashboard"
-                           FontSize="24"
-                           FontAttributes="Bold"
-                           TextColor="Black" />
+                           FontSize="24" FontAttributes="Bold" TextColor="#064e3b"/>
                 </HorizontalStackLayout>
 
                 <!-- Map -->
-                <Border Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="8" StrokeShape="RoundRectangle 10">
+                <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="8" StrokeShape="RoundRectangle 10">
                     <Grid RowDefinitions="Auto,*">
-                        <Label Grid.Row="0" Text="EV Adoption by Country (Battery Share)" FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
+                        <Label Grid.Row="0" Text="EV Adoption by Country (Battery Share)"
+                               FontAttributes="Bold" FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
                         <map:SfMaps Grid.Row="1">
                             <map:SfMaps.Layer>
                                 <map:MapShapeLayer x:Name="MobileShapeLayer"
-                                               ShapeFill="#f2f6ff"
-                                               ShapeStroke="#d6dee9"
+                                               ShapeFill="#dcfce7"           
+                                               ShapeStroke="#166534"
                                                ShapeStrokeThickness="0.7"
                                                EnableSelection="True"
                                                DataSource="{Binding Countries}"
                                                ShapeDataField="name"
                                                PrimaryValuePath="Name"
                                                ShapeSelected="MapShapeLayer_SelectionChanged"
-                                               SelectedShapeFill="#059669"
+                                               SelectedShapeFill="#22c55e"
                                                SelectedShapeStroke="White"
                                                SelectedShapeStrokeThickness="2"
                                                ShowDataLabels="True"
+                                                   ShowShapeTooltip="True"
                                                ShapeColorValuePath="BatteryShare">
-                                    
+
+                                    <map:MapShapeLayer.ShapeTooltipSettings>
+                                        <map:MapTooltipSettings Background="#065f46"
+                                                            Duration="00:00:02"
+                                                            Padding="2,0,2,4">  
+                                            <map:MapTooltipSettings.TextStyle>
+                                                <map:MapLabelStyle FontSize="14"
+                                                           TextColor="White"
+                                                           FontAttributes="Bold">   
+                                                </map:MapLabelStyle>
+                                            </map:MapTooltipSettings.TextStyle>
+                                        </map:MapTooltipSettings>
+                                    </map:MapShapeLayer.ShapeTooltipSettings>
+
                                     <map:MapShapeLayer.ColorMappings>
-                                        <map:RangeColorMapping From="0" To="5" Color="#dbeafe" Text="0–5%"/>
-                                        <map:RangeColorMapping From="5" To="15" Color="#93c5fd" Text="5–15%"/>
-                                        <map:RangeColorMapping From="15" To="30" Color="#3b82f6" Text="15–30%"/>
-                                        <map:RangeColorMapping From="30" To="60" Color="#1d4ed8" Text="30–60%"/>
-                                        <map:RangeColorMapping From="60" To="100" Color="#1e3a8a" Text="60%+"/>
+                                        <!-- Initial green ramp -->
+                                        <map:RangeColorMapping From="0"  To="5"   Color="#dcfce7" Text="0–5%"/>
+                                        <map:RangeColorMapping From="5"  To="15"  Color="#86efac" Text="5–15%"/>
+                                        <map:RangeColorMapping From="15" To="30"  Color="#22c55e" Text="15–30%"/>
+                                        <map:RangeColorMapping From="30" To="60"  Color="#16a34a" Text="30–60%"/>
+                                        <map:RangeColorMapping From="60" To="100" Color="#064e3b" Text="60%+"/>
                                     </map:MapShapeLayer.ColorMappings>
 
                                     <map:MapShapeLayer.Legend>
@@ -62,7 +78,7 @@
                                     </map:MapShapeLayer.Legend>
 
                                     <map:MapShapeLayer.ZoomPanBehavior>
-                                        <map:MapZoomPanBehavior EnableZooming="True" EnablePanning="True" ZoomLevel="2"/>
+                                        <map:MapZoomPanBehavior EnableZooming="False" EnablePanning="False" ZoomLevel="1"/>
                                     </map:MapShapeLayer.ZoomPanBehavior>
                                 </map:MapShapeLayer>
                             </map:SfMaps.Layer>
@@ -70,24 +86,22 @@
                     </Grid>
                 </Border>
 
-                <!-- Top 5 Countries (below carousel) -->
-                <Border Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
+                <!-- Continent pie -->
+                <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="12" StrokeShape="RoundRectangle 10">
                     <Grid>
-                        <Label Text="Top 5 Countries by Battery Share"
-                           FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
+                        <Label Text="Continent by Battery Share" FontAttributes="Bold"
+                               FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
                         <chart:SfCircularChart Margin="0,24,0,0">
-                            <chart:PieSeries ItemsSource="{Binding TopCountries}"
-                                         ShowDataLabels="True" EnableTooltip="True"
-                                         XBindingPath="Country" YBindingPath="Value"
-                                         LabelContext="Percentage" EnableAnimation="True"
-                                         PaletteBrushes="{Binding CustomBrushes}">
+                            <chart:PieSeries ItemsSource="{Binding ContinentShares}"
+                                             ShowDataLabels="True" EnableTooltip="True"
+                                             XBindingPath="Continent" YBindingPath="Value"
+                                             LabelContext="Percentage" EnableAnimation="True"
+                                             PaletteBrushes="{Binding CustomBrushes}"
+                                             ExplodeIndex="{Binding ContinentExplodeIndex}" ExplodeRadius="10">
                                 <chart:PieSeries.DataLabelSettings>
-                                    <chart:CircularDataLabelSettings SmartLabelAlignment="Shift" LabelPlacement="Outer"/>
+                                    <chart:CircularDataLabelSettings UseSeriesPalette="False" LabelPlacement="Outer" SmartLabelAlignment="Shift" />
                                 </chart:PieSeries.DataLabelSettings>
                             </chart:PieSeries>
-                            <chart:SfCircularChart.Legend>
-                                <chart:ChartLegend Placement="Right"/>
-                            </chart:SfCircularChart.Legend>
                         </chart:SfCircularChart>
                     </Grid>
                 </Border>
@@ -97,39 +111,39 @@
 
         <!-- Bottom Sheet overlay for Insights/Trend -->
         <bottomSheet:SfBottomSheet x:Name="DetailsSheet"
-                                   CollapsedHeight="0"
+                                   CollapsedHeight="56"
                                    CornerRadius="15, 15, 0, 0"
+                                   IsOpen="True"
                                    HalfExpandedRatio="0.55"
                                    FullExpandedRatio="0.95">
             <bottomSheet:SfBottomSheet.BottomSheetContent>
+                <tabView:SfTabView IndicatorBackground="#065f46" TabWidthMode="SizeToContent">
 
-                <Grid RowDefinitions="Auto,*" Padding="12">
-                    <Grid Grid.Row="0" ColumnDefinitions="*,*" ColumnSpacing="8">
-                        <button:SfButton Text="Insights" BackgroundColor="DarkGray" TextColor="White" Command="{Binding ShowInsightsCommand}"/>
-                        <button:SfButton Grid.Column="1" Text="Trend" BackgroundColor="DarkGray" TextColor="White" Command="{Binding ShowTrendCommand}"/>
-                    </Grid>
-
-                    <Grid Grid.Row="1" Margin="0,12,0,0">
-                        <!-- Insights -->
-                        <Grid x:Name="InsightsPage" IsVisible="{Binding IsInsightsVisible}">
-                            <Border Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="16" StrokeShape="RoundRectangle 10">
+                    <!-- Insights -->
+                    <tabView:SfTabItem Header="Insights" TextColor="#065f46">
+                        <Grid Padding="12">
+                            <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="16" StrokeShape="RoundRectangle 10">
                                 <Grid RowDefinitions="Auto,*">
                                     <VerticalStackLayout Grid.Row="0" Spacing="14">
-                                        <Border Padding="12" Stroke="#e5e7eb" BackgroundColor="#f8fafc">
+                                        <Border Padding="12" Stroke="#bbf7d0" BackgroundColor="#f0fdf4">
                                             <VerticalStackLayout Spacing="6">
-                                                <Label Text="{Binding SelectedCountryName, StringFormat='Selected: {0}'}" FontAttributes="Bold" TextColor="#0f172a"/>
+                                                <Label Text="{Binding SelectedCountryName, StringFormat='Selected: {0}'}"
+                                                       FontAttributes="Bold" TextColor="#065f46"/>
                                                 <Grid ColumnDefinitions="*,*,*" ColumnSpacing="12">
                                                     <VerticalStackLayout>
                                                         <Label Text="Battery Share" FontSize="12" TextColor="#64748b"/>
-                                                        <Label Text="{Binding SelectedBatteryShare, StringFormat='{0:F2}%'}" FontSize="18" FontAttributes="Bold" TextColor="#0f172a"/>
+                                                        <Label Text="{Binding SelectedBatteryShare, StringFormat='{0:F2}%'}"
+                                                               FontSize="18" FontAttributes="Bold" TextColor="#065f46"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Grid.Column="1">
                                                         <Label Text="Plug-in Share" FontSize="12" TextColor="#64748b"/>
-                                                        <Label Text="{Binding SelectedPlugInShare, StringFormat='{0:F2}%'}" FontSize="18" FontAttributes="Bold" TextColor="#16a34a"/>
+                                                        <Label Text="{Binding SelectedPlugInShare, StringFormat='{0:F2}%'}"
+                                                               FontSize="18" FontAttributes="Bold" TextColor="#16a34a"/>
                                                     </VerticalStackLayout>
                                                     <VerticalStackLayout Grid.Column="2">
                                                         <Label Text="Growth YoY" FontSize="12" TextColor="#64748b"/>
-                                                        <Label Text="{Binding SelectedGrowth, StringFormat='{0:F2}%'}" FontSize="18" FontAttributes="Bold" TextColor="#0f172a"/>
+                                                        <Label Text="{Binding SelectedGrowth, StringFormat='{0:F2}%'}"
+                                                               FontSize="18" FontAttributes="Bold" TextColor="#065f46"/>
                                                     </VerticalStackLayout>
                                                 </Grid>
                                                 <Label Text="{Binding SelectedRecommendation}" FontSize="12" TextColor="#475569"/>
@@ -137,11 +151,23 @@
                                         </Border>
                                     </VerticalStackLayout>
 
+                                    <!-- Radial bar -->
                                     <Grid Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Start" Padding="0">
                                         <chart:SfCircularChart>
                                             <chart:RadialBarSeries ItemsSource="{Binding SelectedMix}"
-                                                                    ShowDataLabels="True" LabelContext="Percentage" XBindingPath="Name" YBindingPath="Value"
-                                                                    InnerRadius="0.55" EnableTooltip="True" EnableAnimation="True"/>
+                                                                    ShowDataLabels="True" LabelContext="Percentage"
+                                                                    XBindingPath="Name" YBindingPath="Value"
+                                                                    InnerRadius="0.55" EnableTooltip="True"
+                                                                    EnableAnimation="True"
+                                                                    PaletteBrushes="{Binding CustomBrushes}">
+                                                <chart:RadialBarSeries.CenterView>
+                                                    <Grid WidthRequest="90" HeightRequest="90">
+                                                        <Path HorizontalOptions="Center" VerticalOptions="Center"
+                                                              Fill="#166534"
+                                                              Data="M27.635,12.970004C28.008,12.970004 28.317999,13.093003 28.563,13.338001 28.807999,13.583999 28.930998,13.893998 28.930998,14.266995 28.930998,14.639992 28.807999,14.948991 28.563,15.194989 28.317999,15.439987 28.008,15.562986 27.635,15.562986 27.261,15.562986 26.952002,15.439987 26.707001,15.194989 26.461001,14.948991 26.339001,14.645992 26.339001,14.281995 26.339001,13.898997 26.461001,13.583999 26.707001,13.338001 26.952002,13.093003 27.261,12.970004 27.635,12.970004z M11.234,12.970004C11.597,12.970004 11.901,13.093003 12.146,13.338001 12.391,13.583999 12.514,13.893998 12.514,14.266995 12.514,14.639992 12.391,14.948991 12.146,15.194989 11.901,15.439987 11.597,15.562986 11.234,15.562986 10.872,15.562986 10.562001,15.439987 10.306001,15.194989 10.05,14.948991 9.9220011,14.645992 9.9220011,14.281995 9.9220011,13.898997 10.05,13.583999 10.306001,13.338001 10.562001,13.093003 10.872,12.970004 11.234,12.970004z M9.9750197,11L7.9900167,14.778991C7.9030168,14.950988,7.8710153,15.122009,7.8930166,15.291992L8.3090174,20 11.000023,20 11.000023,18.309997C11.021023,17.925995 11.154022,17.617004 11.400024,17.382995 11.645023,17.148987 11.949024,17.020996 12.312024,17L25.720051,17C26.082054,17.020996 26.387055,17.148987 26.632056,17.382995 26.877054,17.617004 27.000056,17.925995 27.000056,18.309997L27.000056,20 29.608059,20 30.025059,15.291992C30.045059,15.122009,30.014061,14.950988,29.929062,14.778991L27.910057,11z M14.211028,4.9999997C13.891028,4.9999997 13.598028,5.0859983 13.331027,5.2560117 13.064027,5.4270017 12.867026,5.6510007 12.738026,5.9280088L11.395023,8.9999997 27.427056,8.9999997 26.083054,5.8959958C25.934052,5.6189878 25.731053,5.3999936 25.47505,5.23999 25.21905,5.0799863 24.931051,4.9999997 24.610052,4.9999997z M1.0000023,0L2.0000041,0 2.0000041,3 4.0000088,3 4.0000088,0 5.0000112,0 5.0000112,3 6.0000131,3 6.0000131,6.6170041C6.0000131,7.0100095 5.8680127,7.3330075 5.6030109,7.5880124 5.338011,7.8429868 5.0100095,7.9800107 4.6180103,7.9999997L4.3480093,7.9999997 4.3180087,8.1170041C4.2790091,8.6470029 4.2010076,9.1910092 4.0830076,9.7499997 3.9660087,10.30899 3.8040075,10.822998 3.5990074,11.295013 3.3920062,11.765014 3.4070075,12.273987 3.6430078,12.824005 3.8180075,13.196014 4.0640085,13.484985 4.3780081,13.691009 4.6910102,13.897003 5.0440099,14 5.4370105,14L6.5790126,14 6.6410134,13.907013C6.6820138,13.782989,6.7340138,13.657989,6.7960141,13.533996L9.0640185,9.2149961 10.898022,5.0199887C11.209024,4.39801 11.644023,3.9060056 12.203025,3.5440058 12.763026,3.1820066 13.394027,2.9999997 14.099029,3L24.135048,3C24.840052,2.9999997 25.486052,3.1820066 26.074051,3.546005 26.660055,3.9080045 27.104056,4.4100034 27.403055,5.0520017L29.326061,9.4400022 31.665066,13.861999C31.921063,14.373993,32.027066,14.919006,31.985066,15.496002L31.504063,20.813995C31.461064,21.156006 31.317063,21.437988 31.072062,21.664001 30.826063,21.888 30.532061,22 30.191059,22L26.282051,22C25.918053,22 25.614052,21.877014 25.369051,21.631988 25.123049,21.385986 25.000052,21.082 25.000052,20.717987L25.000052,19 13.000027,19 13.000027,20.709991C12.979027,21.075988 12.845026,21.381988 12.601027,21.628998 12.355026,21.876007 12.051024,22 11.689024,22L8.2140162,22C7.8290155,22 7.5080154,21.881012 7.2480147,21.644989 6.9870145,21.406006 6.8350141,21.096008 6.7900136,20.712005L6.3830135,16 5.411011,16C4.5790088,16 3.8320076,15.781006 3.1710072,15.343994 2.5090048,14.907013 1.9970038,14.315002 1.6350036,13.567993 1.4000034,13.014007 1.2770031,12.447998 1.2670029,11.872009 1.256003,11.29599 1.3680028,10.752014 1.6030028,10.23999 1.7520034,9.8779904 1.8750038,9.4620053 1.9710039,8.9920041 2.0660052,8.52301 2.0710044,8.52301 2.0000041,8.0060117L1.5350028,7.9790036C1.1080021,7.9570005 0.7520014,7.8080136 0.46400046,7.5299985 0.17600095,7.2529904 0.020999951,6.9010007 0,6.4750058L0,3 1.0000023,3z"/>
+                                                    </Grid>
+                                                </chart:RadialBarSeries.CenterView>
+                                            </chart:RadialBarSeries>
                                             <chart:SfCircularChart.Legend>
                                                 <chart:ChartLegend Placement="Right"/>
                                             </chart:SfCircularChart.Legend>
@@ -150,15 +176,25 @@
                                 </Grid>
                             </Border>
                         </Grid>
+                    </tabView:SfTabItem>
 
-                        <!-- Trend -->
-                        <Grid x:Name="TrendPage" IsVisible="{Binding IsTrendVisible}">
-                            <Border Stroke="#e2e8f0" StrokeThickness="1" BackgroundColor="White" Padding="12" StrokeShape="RoundRectangle 10">
+                    <!-- Trends -->
+                    <tabView:SfTabItem Header="Trends" TextColor="#065f46" >
+                        <Grid Padding="12">
+                            <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="12" StrokeShape="RoundRectangle 10">
                                 <Grid>
-                                    <Label Text="{Binding SelectedCountryName, StringFormat='EV Trend – {0}'}" FontAttributes="Bold" FontSize="14" TextColor="#334155" Margin="0,0,0,8"/>
+                                    <Label Text="{Binding SelectedCountryName, StringFormat='EV Trend – {0}'}"
+                                           FontAttributes="Bold" FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
                                     <chart:SfCartesianChart Margin="0,24,0,0">
                                         <chart:SfCartesianChart.XAxes>
-                                            <chart:CategoryAxis/>
+                                            <chart:NumericalAxis Interval="1">
+                                                <chart:NumericalAxis.PlotBands>
+                                                    <chart:NumericalPlotBandCollection>
+                                                        <!-- Plot band in soft mint -->
+                                                        <chart:NumericalPlotBand Start="2022" End="2023" Fill="#dcfce7"/>
+                                                    </chart:NumericalPlotBandCollection>
+                                                </chart:NumericalAxis.PlotBands>
+                                            </chart:NumericalAxis>
                                         </chart:SfCartesianChart.XAxes>
                                         <chart:SfCartesianChart.YAxes>
                                             <chart:NumericalAxis/>
@@ -167,8 +203,14 @@
                                             <chart:ChartTrackballBehavior/>
                                         </chart:SfCartesianChart.TrackballBehavior>
                                         <chart:SfCartesianChart.Series>
-                                            <chart:LineSeries ItemsSource="{Binding BatterySeries}" XBindingPath="Year" YBindingPath="Value" Label="Battery EV" Fill="#059669" EnableAnimation="True" StrokeWidth="2.5"/>
-                                            <chart:LineSeries ItemsSource="{Binding PlugInSeries}" XBindingPath="Year" YBindingPath="Value" Label="Plug-in Hybrid" Fill="#f43f5e" EnableAnimation="True" StrokeWidth="2.5"/>
+                                            <!-- Battery EV line: primary green -->
+                                            <chart:LineSeries ItemsSource="{Binding BatterySeries}" XBindingPath="Year" YBindingPath="Value"
+                                                              Label="Battery EV" Fill="#16a34a"
+                                                              EnableAnimation="True" StrokeWidth="2.5"/>
+                                            <!-- Plug-in Hybrid line: light green -->
+                                            <chart:LineSeries ItemsSource="{Binding PlugInSeries}" XBindingPath="Year" YBindingPath="Value"
+                                                              Label="Plug-in Hybrid" Fill="#86efac"
+                                                              EnableAnimation="True" StrokeWidth="2.5"/>
                                         </chart:SfCartesianChart.Series>
                                         <chart:SfCartesianChart.Legend>
                                             <chart:ChartLegend Placement="Bottom"/>
@@ -177,8 +219,50 @@
                                 </Grid>
                             </Border>
                         </Grid>
-                    </Grid>
-                </Grid>
+                    </tabView:SfTabItem>
+
+                    <!-- Continents Battery Share -->
+                    <tabView:SfTabItem Header="Continents Battery Share" TextColor="#065f46">
+                        <Grid Padding="12">
+                            <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="12" StrokeShape="RoundRectangle 10">
+                                <Grid>
+                                    <Label Text="Country Battery Share" FontAttributes="Bold"
+                                           FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
+                                    <chart:SfCircularChart Margin="0,24,0,0">
+                                        <chart:PieSeries ItemsSource="{Binding TopCountries}"
+                                                         ShowDataLabels="True" EnableTooltip="True"
+                                                         XBindingPath="Country" YBindingPath="Value"
+                                                         LabelContext="Percentage" EnableAnimation="True"
+                                                         PaletteBrushes="{Binding CustomBrushes}"
+                                                         ExplodeIndex="{Binding CountryExplodeIndex}" ExplodeRadius="10">
+                                            <chart:PieSeries.DataLabelSettings>
+                                                <chart:CircularDataLabelSettings UseSeriesPalette="False"
+                                                                                LabelPlacement="Outer"
+                                                                                SmartLabelAlignment="Shift" />
+                                            </chart:PieSeries.DataLabelSettings>
+                                        </chart:PieSeries>
+                                        <chart:SfCircularChart.Legend>
+                                            <chart:ChartLegend ToggleSeriesVisibility="True"
+                                                               Placement="{OnPlatform Default=Bottom, Android=Bottom, iOS=Bottom}">
+                                                <chart:ChartLegend.ItemsLayout>
+                                                    <FlexLayout WidthRequest="300"
+                                                                HeightRequest="72"
+                                                                Direction="Column"
+                                                                Wrap="Wrap"
+                                                                AlignItems="Stretch"
+                                                                AlignContent="Stretch"
+                                                                VerticalOptions="Start"
+                                                                HorizontalOptions="Start"/>
+                                                </chart:ChartLegend.ItemsLayout>
+                                            </chart:ChartLegend>
+                                        </chart:SfCircularChart.Legend>
+                                    </chart:SfCircularChart>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </tabView:SfTabItem>
+
+                </tabView:SfTabView>
             </bottomSheet:SfBottomSheet.BottomSheetContent>
         </bottomSheet:SfBottomSheet>
     </Grid>
