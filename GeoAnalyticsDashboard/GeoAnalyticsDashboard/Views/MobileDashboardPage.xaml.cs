@@ -1,4 +1,6 @@
 using Syncfusion.Maui.Maps;
+using Syncfusion.Maui.Toolkit.BottomSheet;
+using System.Threading.Tasks;
 
 namespace GeoAnalyticsDashboard.Views
 {
@@ -18,7 +20,6 @@ namespace GeoAnalyticsDashboard.Views
             {
                 vm.ApplySelection(cs);
 
-                // Open bottom sheet when a country is tapped (HalfExpandedRatio configured in XAML)
                 if (DetailsSheet != null)
                 {
                     DetailsSheet.Show();
