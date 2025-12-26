@@ -1,9 +1,11 @@
 # Essential-Guide-to-Creating-a-Geo-Analytics-Dashboard-Using-.NET-MAUI-Charts-and-Maps
 
 ## Overview
+
 The EV Geo Analytics Dashboard showcases a cross-platform (.NET MAUI) experience that turns electric vehicle (EV) adoption data into actionable insights using Syncfusion® .NET MAUI [Maps](https://www.syncfusion.com/maui-controls/maui-maps) and [Charts](https://www.syncfusion.com/maui-controls/maui-cartesian-charts). It emphasizes clarity, interactivity, and a responsive layout for decision-making.
 
 ## Syncfusion .NET MAUI Charts and Maps
+
 A high-performance visualization suite for .NET MAUI apps with:
 - Broad chart coverage: Line, pie/radial bar, and more.
 - Maps: Shape-based world map with legends, color ranges, and tooltips.
@@ -14,12 +16,14 @@ A high-performance visualization suite for .NET MAUI apps with:
 ## Geo Analytics Dashboard
 
 ### Layout overview
+
 Two‑column, two‑row Grid layout:
 - Title bar: “Geo Analytics Dashboard — EV Adoption”
 - Top row: World Map (left), Country Insights + Composition (right)
 - Bottom row: EV Trend (left), Top 5 Countries (right)
 
 ### Dashboard components
+
 - EV Adoption by Country (Map)
   - Purpose: Show Battery EV share by country at a glance.
   - Highlights: Choropleth color ranges, selection, tooltips, legend, zoom/pan.
@@ -32,13 +36,18 @@ Two‑column, two‑row Grid layout:
   - Purpose: Compare Battery EV vs. Plug‑in share over years for the selected country.
   - Highlights: Dual LineSeries, clean axes, bottom legend, smooth animation.
 
-- Top 5 Countries (Latest Snapshot)
-  - Purpose: Highlight leading markets by latest Battery EV share.
-  - Highlights: Pie visualization with outside labels, smart alignment, and legend.
+- Country Comparison (Latest Snapshot)
+  - Purpose: Compare Battery EV share between selected countries.
+  - Highlights: Pie chart with outside labels, smart alignment, and legend.
 
-  ![GeoAnalyticsDashboard_Demo](https://github.com/user-attachments/assets/1ac2109c-211c-4a73-ae95-07f0aece3f29)
+- Continent by Battery Share
+  - Purpose: Show regional distribution of Battery EV adoption.
+  - Highlights: Pie chart with percentage labels and legend.
+
+  ![GeoAnalyticsDashboard_Demo](https://github.com/user-attachments/assets/5ec5a739-b51b-4d55-96ac-ccd60ec7f7a3)
 
 ## Troubleshooting
+
 - If you are facing a path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.Path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
 Refer to the blog for step‑by‑step guidance on creating a Geo Analytics Dashboard using .NET MAUI Charts and Syncfusion® Maps.

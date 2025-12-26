@@ -7,89 +7,165 @@ using System.Windows.Input;
 namespace GeoAnalyticsDashboard;
 
 /// <summary>
-/// View model for the desktop geo analytics dashboard. Loads EV adoption data from CSV,
-/// exposes observable series and collections consumed by Syncfusion Maps/Charts, tracks selection state,
+/// View model for the desktop geo analytics dashboard. Loads EV adoption data from CSV, exposes
+/// observable series and collections consumed by Syncfusion Maps/Charts, tracks selection state,
 /// computes YoY growth and powertrain mix, and provides commands to toggle insights/trend views.
 /// </summary>
 public class MainPageViewModel : INotifyPropertyChanged
 {
+    /// <summary>
+    /// Latest-year country snapshot list used by the map and selection panel.
+    /// </summary>
     public ObservableCollection<CountryAdoptionSnapshot> Countries { get; } = new();
+
+    /// <summary>
+    /// Top countries (by battery EV share) within the selected continent for the latest year.
+    /// Drives the continent-specific pie and selection explode logic.
+    /// </summary>
     public ObservableCollection<TopCountryShare> TopCountries { get; } = new();
+
+    /// <summary>
+    /// Time series of Battery EV share for the selected country.
+    /// </summary>
     public ObservableCollection<YearlySharePoint> BatterySeries { get; } = new();
+
+    /// <summary>
+    /// Time series of Plug-in EV share for the selected country.
+    /// </summary>
     public ObservableCollection<YearlySharePoint> PlugInSeries { get; } = new();
 
-    // Pie chart sources
+    /// <summary>
+    /// Aggregated latest-year battery EV share by continent (average), used by the continent pie.
+    /// </summary>
     public ObservableCollection<ContinentShare> ContinentShares { get; } = new();
 
+    /// <summary>
+    /// Powertrain mix slices (Battery, Plug-in, Other) for the selected country.
+    /// Values are percentages rounded to two decimals.
+    /// </summary>
     public ObservableCollection<PowertrainMixSlice> SelectedMix { get; } = new();
 
+    /// <summary>
+    /// Custom color palette used by charts to ensure consistent branding.
+    /// </summary>
     public List<Brush> CustomBrushes { get; set; }
 
     // Tracks most recent year in the dataset to drive selections/filters
     private int _latestYear;
-
     private int _detailsIndex;
+
+    /// <summary>
+    /// Index for details view segment/tab selection in the UI.
+    /// </summary>
     public int DetailsIndex { get => _detailsIndex; set => SetProperty(ref _detailsIndex, value); }
 
-    // Explode indices for pies
+    // Explode continent indices for pies
     private int _continentExplodeIndex = -1;
+
+    /// <summary>
+    /// Slice index to explode in the continent pie; -1 means no explosion.
+    /// </summary>
     public int ContinentExplodeIndex { get => _continentExplodeIndex; set => SetProperty(ref _continentExplodeIndex, value); }
 
+    // Explode country indices for pies
     private int _countryExplodeIndex = -1;
+
+    /// <summary>
+    /// Slice index to explode in the top-countries pie; -1 means no explosion.
+    /// </summary>
     public int CountryExplodeIndex { get => _countryExplodeIndex; set => SetProperty(ref _countryExplodeIndex, value); }
 
-
     private bool _isInsightsVisible = true;
-
     private bool _isTrendVisible = false;
-
     private bool _isContinentVisible = false;
 
+    /// <summary>
+    /// True when the Insights panel is visible.
+    /// </summary>
     public bool IsInsightsVisible
     {
         get => _isInsightsVisible;
         set { if (_isInsightsVisible != value) { _isInsightsVisible = value; OnPropertyChanged(); } }
     }
 
+    /// <summary>
+    /// True when the Trend (time-series) view is visible.
+    /// </summary>
     public bool IsTrendVisible
     {
         get => _isTrendVisible;
         set { if (_isTrendVisible != value) { _isTrendVisible = value; OnPropertyChanged(); } }
     }
 
+    /// <summary>
+    /// True when the Continent (aggregate) view is visible.
+    /// </summary>
     public bool IsContinentVisible
     {
         get => _isContinentVisible;
         set { if (_isContinentVisible != value) { _isContinentVisible = value; OnPropertyChanged(); } }
     }
 
+    /// <summary>
+    /// Command to activate the Insights view.
+    /// </summary>
     public ICommand ShowInsightsCommand { get; }
+
+    /// <summary>
+    /// Command to activate the Trend view.
+    /// </summary>
     public ICommand ShowTrendCommand { get; }
 
+    /// <summary>
+    /// Command to activate the Continent view.
+    /// </summary>
     public ICommand ShowContinentCommand { get; }
 
     // Selected insights
     private string _selectedCountryName = "Select a country";
+
+    /// <summary>
+    /// Name of the currently selected country in the latest-year snapshot list.
+    /// </summary>
     public string SelectedCountryName { get => _selectedCountryName; set => SetProperty(ref _selectedCountryName, value); }
 
     private double _selectedBatteryShare;
+
+    /// <summary>
+    /// Latest-year Battery EV share for the selected country.
+    /// </summary>
     public double SelectedBatteryShare { get => _selectedBatteryShare; set => SetProperty(ref _selectedBatteryShare, value); }
 
     private double _selectedPlugInShare;
+
+    /// <summary>
+    /// Latest-year Plug-in EV share for the selected country.
+    /// </summary>
     public double SelectedPlugInShare { get => _selectedPlugInShare; set => SetProperty(ref _selectedPlugInShare, value); }
 
     private double _selectedGrowth;
+
+    /// <summary>
+    /// Year-over-year growth of Battery EV share based on the two most recent years.
+    /// </summary>
     public double SelectedGrowth { get => _selectedGrowth; set => SetProperty(ref _selectedGrowth, value); }
 
     private string _selectedRecommendation = "Click a country to view EV insights.";
+
+    /// <summary>
+    /// Contextual recommendation derived from EV share levels and growth for the selected country.
+    /// </summary>
     public string SelectedRecommendation { get => _selectedRecommendation; set => SetProperty(ref _selectedRecommendation, value); }
 
     // Internal raw data
     private readonly List<EvAdoptionRecord> _allData = new();
 
+    /// <summary>
+    /// Initializes the view model, sets a custom color palette, begins CSV loading,
+    /// and wires commands for toggling Insights/Trend/Continent views.
+    /// </summary>
     public MainPageViewModel()
     {
-        // Custom color palette for the charts
         CustomBrushes = new List<Brush>();
         CustomBrushes.Add(new SolidColorBrush(Color.FromArgb("#064e3b")));
         CustomBrushes.Add(new SolidColorBrush(Color.FromArgb("#166534")));
@@ -285,6 +361,10 @@ public class MainPageViewModel : INotifyPropertyChanged
         SelectedRecommendation = BuildRecommendation(SelectedBatteryShare, SelectedPlugInShare, SelectedGrowth);
     }
 
+    /// <summary>
+    /// Builds the powertrain mix slices for the SelectedMix pie based on the latest values.
+    /// Computes the residual "Other" as 100 - (Battery + Plug-in).
+    /// </summary>
     private void BuildSelectedMix(double battery, double plugIn)
     {
         SelectedMix.Clear();
@@ -294,8 +374,14 @@ public class MainPageViewModel : INotifyPropertyChanged
         SelectedMix.Add(new PowertrainMixSlice { Name = "Other", Value = RoundPct(other) });
     }
 
+    /// <summary>
+    /// Rounds a percentage to two decimals.
+    /// </summary>
     private static double RoundPct(double v) => Math.Round(v, 2);
 
+    /// <summary>
+    /// Produces a simple recommendation message based on absolute EV share and short-term growth.
+    /// </summary>
     private string BuildRecommendation(double battery, double plugIn, double growth)
     {
         if (battery >= 60) return "EV market is mature: Focus on infrastructure and fast charging.";
@@ -305,14 +391,27 @@ public class MainPageViewModel : INotifyPropertyChanged
         return "Seed stage: Awareness and education are key.";
     }
 
+    /// <summary>
+    /// Parses a numeric value from the CSV using invariant culture.
+    /// </summary>
     private static double Parse(string s) => double.Parse(s, CultureInfo.InvariantCulture);
 
+    /// <summary>
+    /// Splits a CSV line into fields. Note: the dataset is simple and not quoted.
+    /// </summary>
     private static string[] SplitCsv(string line) => line.Split(',');
 
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
+    /// <summary>
+    /// Raises the PropertyChanged event for the provided property name.
+    /// </summary>
     protected void OnPropertyChanged([CallerMemberName] string? name = null) =>
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
+    /// <summary>
+    /// Helper to set a backing field and raise PropertyChanged only when the value changes.
+    /// </summary>
     protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] string? name = null)
     {
         if (Equals(storage, value)) return false;
