@@ -193,7 +193,11 @@
                                             <chart:NumericalAxis/>
                                         </chart:SfCartesianChart.YAxes>
                                         <chart:SfCartesianChart.TrackballBehavior>
-                                            <chart:ChartTrackballBehavior/>
+                                            <chart:ChartTrackballBehavior>
+                                                <chart:ChartTrackballBehavior.LabelStyle>
+                                                    <chart:ChartLabelStyle Background="#065f46" LabelFormat="0.00'%'"/>
+                                                </chart:ChartTrackballBehavior.LabelStyle>
+                                            </chart:ChartTrackballBehavior>
                                         </chart:SfCartesianChart.TrackballBehavior>
                                         <chart:SfCartesianChart.Series>
                                             <chart:LineSeries ItemsSource="{Binding BatterySeries}" XBindingPath="Year" YBindingPath="Value" 
@@ -218,7 +222,7 @@
                                 <Grid>
                                     <Label Text="Country Battery Share" FontAttributes="Bold" 
                                            FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
-                                    <chart:SfCircularChart Margin="0,24,0,0">
+                                    <chart:SfCircularChart x:Name="CountryPieChart" Margin="0,24,0,0">
                                         <chart:PieSeries ItemsSource="{Binding TopCountries}" 
                                                          ShowDataLabels="True" EnableTooltip="False" 
                                                          XBindingPath="Country" YBindingPath="Value" 
@@ -232,18 +236,17 @@
                                             </chart:PieSeries.DataLabelSettings>
                                         </chart:PieSeries>
                                         <chart:SfCircularChart.Legend>
-                                            <chart:ChartLegend ToggleSeriesVisibility="True" 
-                                                               Placement="{OnPlatform Default=Bottom, Android=Bottom, iOS=Bottom}">
+                                            <chart:ChartLegend
+                                                         ToggleSeriesVisibility="True"
+                                                         Placement="Bottom">
                                                 <chart:ChartLegend.ItemsLayout>
-                                                    <FlexLayout
-                                                        WidthRequest="350"
-                                                        HeightRequest="72"
-                                                        Direction="Row"
-                                                        Wrap="Wrap"
-                                                        AlignItems="Start"
-                                                        AlignContent="Start"
-                                                        VerticalOptions="Start"
-                                                        HorizontalOptions="Start"/>
+                                                    <FlexLayout x:Name="CountryLegendPanel"
+                                                                 Direction="Row"
+                                                                 Wrap="Wrap"
+                                                                 JustifyContent="Center"
+                                                                 AlignItems="Center"
+                                                                 AlignContent="Start"
+                                                                 VerticalOptions="Start"/>
                                                 </chart:ChartLegend.ItemsLayout>
                                             </chart:ChartLegend>
                                         </chart:SfCircularChart.Legend>
