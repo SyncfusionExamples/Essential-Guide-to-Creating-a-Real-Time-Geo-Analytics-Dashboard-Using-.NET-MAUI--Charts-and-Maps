@@ -52,16 +52,25 @@
 
                                     <map:MapShapeLayer.ShapeTooltipSettings>
                                         <map:MapTooltipSettings Background="#065f46"
-                                                            Duration="00:00:02"
-                                                            Padding="2,0,2,4">
-                                            <map:MapTooltipSettings.TextStyle>
-                                                <map:MapLabelStyle FontSize="14"
-                                                           TextColor="White"
-                                                           FontAttributes="Bold">
-                                                </map:MapLabelStyle>
-                                            </map:MapTooltipSettings.TextStyle>
+                                                                    Duration="00:00:02"
+                                                                    Padding="2,0,2,4">
+
                                         </map:MapTooltipSettings>
                                     </map:MapShapeLayer.ShapeTooltipSettings>
+
+                                    <map:MapShapeLayer.ShapeTooltipTemplate>
+                                        <DataTemplate x:DataType="map:MapTooltipInfo">
+                                            <Border BackgroundColor="#065f46"
+                                                        Padding="6,4"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="RoundRectangle 4">
+                                                <Label Text="{Binding DataItem.TooltipText, FallbackValue=EV is in Seeding state in this country}"
+                                                           TextColor="White"
+                                                           FontSize="14"
+                                                           FontAttributes="Bold"/>
+                                            </Border>
+                                        </DataTemplate>
+                                    </map:MapShapeLayer.ShapeTooltipTemplate>
 
                                     <map:MapShapeLayer.ColorMappings>
                                         <map:RangeColorMapping From="0" To="5" Color="#dcfce7" Text="0–5%"/>
@@ -163,6 +172,9 @@
                                             <chart:SfCircularChart.Legend>
                                                 <chart:ChartLegend Placement="Bottom"/>
                                             </chart:SfCircularChart.Legend>
+                                            <chart:SfCircularChart.TooltipBehavior>
+                                                <chart:ChartTooltipBehavior Background ="#065f46"/>
+                                            </chart:SfCircularChart.TooltipBehavior>
                                         </chart:SfCircularChart>
                                     </Grid>
                                     <Grid Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
