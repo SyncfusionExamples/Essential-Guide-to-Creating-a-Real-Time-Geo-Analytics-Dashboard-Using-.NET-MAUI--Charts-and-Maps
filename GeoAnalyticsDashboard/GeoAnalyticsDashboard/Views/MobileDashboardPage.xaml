@@ -33,7 +33,7 @@
                     <Grid RowDefinitions="Auto,*">
                         <Label Grid.Row="0" Text="EV Adoption by Country (Battery Share)" 
                                FontAttributes="Bold" FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
-                        <map:SfMaps Grid.Row="1" HeightRequest="260">
+                        <map:SfMaps Grid.Row="1" HeightRequest="380">
                             <map:SfMaps.Layer>
                                 <map:MapShapeLayer x:Name="MobileShapeLayer"
                                                ShapeFill="#dcfce7"
@@ -119,7 +119,7 @@
                                    CollapsedHeight="95"
                                    IsOpen="True"
                                    Background="#f0fdf4"
-                                   HalfExpandedRatio="0.75"
+                                   HalfExpandedRatio="0.65"
                                    FullExpandedRatio="0.95">
             <bottomSheet:SfBottomSheet.BottomSheetContent>
                 <tabView:SfTabView IndicatorBackground="#065f46" Background="#f0fdf4" TabWidthMode="SizeToContent">
