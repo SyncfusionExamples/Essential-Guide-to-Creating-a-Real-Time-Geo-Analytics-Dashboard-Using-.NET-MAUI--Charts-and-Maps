@@ -37,6 +37,8 @@ namespace GeoAnalyticsDashboard
 
         /// <summary>Plug-in hybrid share (%) for the latest year.</summary>
         public double PlugInShare { get; set; }
+
+        public string TooltipText { get; set; }
     }
 
     /// <summary>

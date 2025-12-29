@@ -237,18 +237,22 @@ public class MainPageViewModel : INotifyPropertyChanged
         Countries.Clear();
         foreach (var item in latestData)
         {
+            bool isSeeding = item.BatteryShare == 0 && item.PlugInShare == 0;
+
             Countries.Add(new CountryAdoptionSnapshot
             {
                 Name = item.Country,
+                TooltipText = isSeeding
+                                ? $"{item.Country} - EV is in Seeding state in this country"
+                                : item.Country,
                 BatteryShare = item.BatteryShare,
-                PlugInShare = item.PlugInShare
+                PlugInShare = item.PlugInShare,
             });
         }
 
         TopCountries.Clear();
         CountryExplodeIndex = -1;
 
-        // Continent aggregation
         ContinentShares.Clear();
         var byContinent = latestData
             .Where(d => !string.IsNullOrWhiteSpace(d.Continent))
@@ -281,8 +285,8 @@ public class MainPageViewModel : INotifyPropertyChanged
         {
             ApplySelection(Countries[0]);
         }
-
     }
+
 
     /// <summary>
     /// Applies the selected country. Updates insight fields, rebuilds Battery/Plug-in trend series,

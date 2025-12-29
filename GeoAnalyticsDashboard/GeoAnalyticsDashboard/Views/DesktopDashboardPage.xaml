@@ -11,7 +11,7 @@
     Padding="16">
 
     <ContentPage.BindingContext>
-        <local:MainPageViewModel />
+        <local:MainPageViewModel/>
     </ContentPage.BindingContext>
 
     <ScrollView Orientation="Vertical">
@@ -66,14 +66,23 @@
                                             <map:MapTooltipSettings Background="#065f46"
                                                                     Duration="00:00:02"
                                                                     Padding="2,0,2,4">
-                                                <map:MapTooltipSettings.TextStyle>
-                                                    <map:MapLabelStyle FontSize="14"
-                                                                       TextColor="White"
-                                                                       FontAttributes="Bold">
-                                                    </map:MapLabelStyle>
-                                                </map:MapTooltipSettings.TextStyle>
+                                               
                                             </map:MapTooltipSettings>
                                         </map:MapShapeLayer.ShapeTooltipSettings>
+
+                                        <map:MapShapeLayer.ShapeTooltipTemplate>
+                                            <DataTemplate x:DataType="map:MapTooltipInfo">
+                                                <Border BackgroundColor="#065f46"
+                                                        Padding="6,4"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="RoundRectangle 4">
+                                                    <Label Text="{Binding DataItem.TooltipText, FallbackValue=EV is in Seeding state in this country}"
+                                                           TextColor="White"
+                                                           FontSize="14"
+                                                           FontAttributes="Bold"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </map:MapShapeLayer.ShapeTooltipTemplate>
 
                                         <map:MapShapeLayer.ColorMappings>
                                             <map:RangeColorMapping From="0" To="5" Color="#dcfce7" Text="0–5%"/>
