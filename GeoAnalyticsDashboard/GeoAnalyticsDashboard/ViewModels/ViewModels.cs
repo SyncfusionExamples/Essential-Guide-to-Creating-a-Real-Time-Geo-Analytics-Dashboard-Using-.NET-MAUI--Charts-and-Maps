@@ -157,6 +157,20 @@ public class MainPageViewModel : INotifyPropertyChanged
     /// </summary>
     public string SelectedRecommendation { get => _selectedRecommendation; set => SetProperty(ref _selectedRecommendation, value); }
 
+    // Selected continent for the current selection and tooltip text for the country pie info icon
+    private string _selectedContinent = string.Empty;
+    private string _countryPieInfoTooltip = "Top countries by EV battery share.";
+
+    /// <summary>
+    /// Selected continent name for the currently selected country.
+    /// </summary>
+    public string SelectedContinent { get => _selectedContinent; set => SetProperty(ref _selectedContinent, value); }
+
+    /// <summary>
+    /// Tooltip text shown on the info icon near Country-by-Battery-Share pie title.
+    /// </summary>
+    public string CountryPieInfoTooltip { get => _countryPieInfoTooltip; set => SetProperty(ref _countryPieInfoTooltip, value); }
+
     // Internal raw data
     private readonly List<EvAdoptionRecord> _allData = new();
 
@@ -243,7 +257,7 @@ public class MainPageViewModel : INotifyPropertyChanged
             {
                 Name = item.Country,
                 TooltipText = isSeeding
-                                ? $"{item.Country} - EV is in Seeding state in this country"
+                                ? $"{item.Country} - EV in early stage"
                                 : item.Country,
                 BatteryShare = item.BatteryShare,
                 PlugInShare = item.PlugInShare,
@@ -255,13 +269,15 @@ public class MainPageViewModel : INotifyPropertyChanged
 
         ContinentShares.Clear();
         var byContinent = latestData
-            .Where(d => !string.IsNullOrWhiteSpace(d.Continent))
+            .Where(d => !string.IsNullOrWhiteSpace(d.Continent)
+                        && (d.BatteryShare > 0 || d.PlugInShare > 0))
             .GroupBy(d => d.Continent!)
             .Select(g => new ContinentShare
             {
                 Continent = g.Key,
                 Value = g.Average(x => x.BatteryShare)
             })
+            .Where(c => c.Value > 0)
             .OrderByDescending(c => c.Value)
             .ToList();
 
@@ -283,10 +299,16 @@ public class MainPageViewModel : INotifyPropertyChanged
 
         if (Countries.Count > 0)
         {
-            ApplySelection(Countries[0]);
+            var firstWithData = Countries.FirstOrDefault(c => c.BatteryShare > 0 || c.PlugInShare > 0);
+            if (firstWithData != null)
+            {
+                ApplySelection(firstWithData);
+            }
         }
     }
 
+    // Determines whether a country can be selected (has any EV share data)
+    private static bool IsSelectable(CountryAdoptionSnapshot cs) => cs != null && (cs.BatteryShare > 0 || cs.PlugInShare > 0);
 
     /// <summary>
     /// Applies the selected country. Updates insight fields, rebuilds Battery/Plug-in trend series,
@@ -297,6 +319,11 @@ public class MainPageViewModel : INotifyPropertyChanged
     public void ApplySelection(CountryAdoptionSnapshot cs)
     {
         if (cs == null) return;
+        if (!IsSelectable(cs))
+        {
+            SelectedRecommendation = "No EV data for this country.";
+            return;
+        }
 
         SelectedCountryName = cs.Name;
         SelectedBatteryShare = cs.BatteryShare;
@@ -310,6 +337,12 @@ public class MainPageViewModel : INotifyPropertyChanged
                        .OrderByDescending(d => d.Year)
                        .Select(d => d.Continent)
                        .FirstOrDefault();
+
+        // Update selected continent and the tooltip text for the country pie info icon
+        SelectedContinent = selectedContinent ?? string.Empty;
+        CountryPieInfoTooltip = string.IsNullOrWhiteSpace(SelectedContinent)
+            ? "Top countries by EV battery share."
+            : $"Top countries in {SelectedContinent} by EV battery share.";
 
         if (!string.IsNullOrWhiteSpace(selectedContinent))
         {

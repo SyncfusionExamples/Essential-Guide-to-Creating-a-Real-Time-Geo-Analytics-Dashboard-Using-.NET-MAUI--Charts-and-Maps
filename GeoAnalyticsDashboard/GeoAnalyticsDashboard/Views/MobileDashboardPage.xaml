@@ -33,7 +33,7 @@
                     <Grid RowDefinitions="Auto,*">
                         <Label Grid.Row="0" Text="EV Adoption by Country (Battery Share)" 
                                FontAttributes="Bold" FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
-                        <map:SfMaps Grid.Row="1" HeightRequest="380">
+                        <map:SfMaps Grid.Row="1" HeightRequest="355">
                             <map:SfMaps.Layer>
                                 <map:MapShapeLayer x:Name="MobileShapeLayer"
                                                ShapeFill="#dcfce7"
@@ -44,7 +44,7 @@
                                                ShapeDataField="name"
                                                PrimaryValuePath="Name"
                                                ShapeSelected="MapShapeLayer_SelectionChanged"
-                                               SelectedShapeFill="#22c55e"
+                                               SelectedShapeFill="Orange"
                                                SelectedShapeStroke="White"
                                                SelectedShapeStrokeThickness="2"
                                                ShowDataLabels="True"
@@ -97,7 +97,7 @@
                     <Grid>
                         <Label Text="Continent by Batttery Share" FontAttributes="Bold" 
                                FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
-                        <chart:SfCircularChart Margin="0,24,0,0" HeightRequest="{OnPlatform Android=250, iOS=170}">
+                        <chart:SfCircularChart x:Name="ContinentPieChart" Margin="0,24,0,0" HeightRequest="{OnPlatform Android=250, iOS=270}">
                             <chart:PieSeries ItemsSource="{Binding ContinentShares}" 
                                              ShowDataLabels="True" EnableTooltip="False" 
                                              XBindingPath="Continent" YBindingPath="Value" 
@@ -108,6 +108,21 @@
                                     <chart:CircularDataLabelSettings UseSeriesPalette="False" LabelPlacement="Outer" SmartLabelAlignment="Shift" />
                                 </chart:PieSeries.DataLabelSettings>
                             </chart:PieSeries>
+                            <chart:SfCircularChart.Legend>
+                                <chart:ChartLegend
+                                        ToggleSeriesVisibility="True"
+                                        Placement="Bottom">
+                                    <chart:ChartLegend.ItemsLayout>
+                                        <FlexLayout x:Name="ContinentLegendPanel"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="Center"
+                                                AlignItems="Center"
+                                                AlignContent="Start"
+                                                VerticalOptions="Start"/>
+                                    </chart:ChartLegend.ItemsLayout>
+                                </chart:ChartLegend>
+                            </chart:SfCircularChart.Legend>
                         </chart:SfCircularChart>
                     </Grid>
                 </Border>
@@ -126,7 +141,7 @@
                     <tabView:SfTabItem Header="Insights" TextColor="#065f46">
                         <Grid Padding="12">
                             <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="16" StrokeShape="RoundRectangle 10">
-                                <Grid RowDefinitions="Auto,Auto,Auto">
+                                <Grid RowDefinitions="Auto,Auto">
                                     <VerticalStackLayout Grid.Row="0" Spacing="14">
                                         <Border Padding="12" Stroke="#bbf7d0" BackgroundColor="#f0fdf4">
                                             <VerticalStackLayout Spacing="6">
@@ -176,9 +191,6 @@
                                                 <chart:ChartTooltipBehavior Background ="#065f46"/>
                                             </chart:SfCircularChart.TooltipBehavior>
                                         </chart:SfCircularChart>
-                                    </Grid>
-                                    <Grid Grid.Row="2" HorizontalOptions="Center" VerticalOptions="Center">
-                                        <Label Text="{Binding SelectedRecommendation}" FontSize="12" TextColor="#475569"/>
                                     </Grid>
                                 </Grid>
                             </Border>
@@ -231,10 +243,24 @@
                     <tabView:SfTabItem Header="Countries" TextColor="#065f46">
                         <Grid Padding="12">
                             <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="12" StrokeShape="RoundRectangle 10">
-                                <Grid>
-                                    <Label Text="Country Battery Share" FontAttributes="Bold" 
-                                           FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
-                                    <chart:SfCircularChart x:Name="CountryPieChart" Margin="0,24,0,0">
+                                <Grid RowDefinitions="Auto,*">
+                                    <HorizontalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,3">
+                                        <Label Text="Country by Battery Share" FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
+                                        <Border StrokeThickness="0"
+                                                BackgroundColor="#e2e8f0"
+                                                Padding="0"
+                                                WidthRequest="18"
+                                                HeightRequest="18"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Center"
+                                                StrokeShape="Ellipse"
+                                                ToolTipProperties.Text="{Binding CountryPieInfoTooltip}">
+                                            <Label Text="i" FontAttributes="Bold" FontSize="12" TextColor="#065f46" 
+                                                   Padding="0,0,0,3" HorizontalOptions="Center" 
+                                                   VerticalOptions="Center"/>
+                                        </Border>
+                                    </HorizontalStackLayout>
+                                    <chart:SfCircularChart Grid.Row="1" x:Name="CountryPieChart" Margin="0,24,0,0">
                                         <chart:PieSeries ItemsSource="{Binding TopCountries}" 
                                                          ShowDataLabels="True" EnableTooltip="False" 
                                                          XBindingPath="Country" YBindingPath="Value" 

@@ -56,7 +56,7 @@
                                         ShapeDataField="name"
                                         PrimaryValuePath="Name"
                                         ShapeSelected="MapShapeLayer_SelectionChanged"
-                                        SelectedShapeFill="#22c55e"
+                                        SelectedShapeFill="Orange"
                                         SelectedShapeStroke="White"
                                         SelectedShapeStrokeThickness="2"
                                         ShowDataLabels="True"
@@ -128,7 +128,7 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="1" Spacing="16">
-                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=300,MacCatalyst=505}" 
+                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=330,MacCatalyst=535}" 
                             StrokeThickness="1" BackgroundColor="#F3FFE3" Padding="12" 
                             StrokeShape="RoundRectangle 10">
                         <Grid>
@@ -167,7 +167,7 @@
                         </Grid>
                     </Border>
 
-                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=360,MacCatalyst=505}" 
+                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=330,MacCatalyst=475}" 
                             StrokeThickness="1" BackgroundColor="#F3FFE3" Padding="16" 
                             StrokeShape="RoundRectangle 10">
                         <Grid RowDefinitions="Auto,*">
@@ -204,13 +204,13 @@
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Grid.Column="2" Spacing="16">
-                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=300,MacCatalyst=505}" 
+                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=330,MacCatalyst=535}" 
                             StrokeThickness="1" BackgroundColor="#F3FFE3" 
                             Padding="12" StrokeShape="RoundRectangle 10">
                         <Grid>
                             <Label Text="Continent by Batttery Share" FontAttributes="Bold" FontSize="14" 
                                    TextColor="#065f46" Margin="0,0,0,8"/>
-                            <chart:SfCircularChart Margin="0,24,0,0">
+                            <chart:SfCircularChart x:Name="ContinentPieChart" Margin="0,24,0,0">
                                 <chart:PieSeries ItemsSource="{Binding ContinentShares}" 
                                                  ShowDataLabels="True" 
                                                  EnableTooltip="False" 
@@ -225,17 +225,44 @@
                                         <chart:CircularDataLabelSettings UseSeriesPalette="False" SmartLabelAlignment="Shift" />
                                     </chart:PieSeries.DataLabelSettings>
                                 </chart:PieSeries>
+                                <chart:SfCircularChart.Legend>
+                                    <chart:ChartLegend
+                                        ToggleSeriesVisibility="True"
+                                        Placement="Bottom">
+                                        <chart:ChartLegend.ItemsLayout>
+                                            <FlexLayout x:Name="ContinentLegendPanel"
+                                                Direction="Row"
+                                                Wrap="Wrap"
+                                                JustifyContent="Center"
+                                                AlignItems="Center"
+                                                AlignContent="Start"
+                                                VerticalOptions="Start"/>
+                                        </chart:ChartLegend.ItemsLayout>
+                                    </chart:ChartLegend>
+                                </chart:SfCircularChart.Legend>
                             </chart:SfCircularChart>
                         </Grid>
                     </Border>
 
-                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=360,MacCatalyst=505}" 
+                    <Border Stroke="#bbf7d0" HeightRequest="{OnPlatform Default=330,MacCatalyst=475}" 
                             StrokeThickness="1" BackgroundColor="#F3FFE3" 
                             Padding="12" StrokeShape="RoundRectangle 10">
-                        <Grid>
-                            <Label Text="Country by Battery Share" FontAttributes="Bold" FontSize="14" 
-                                   TextColor="#065f46" Margin="0,0,0,8"/>
-                            <chart:SfCircularChart x:Name="CountryPieChart" Margin="0,24,0,0">
+                        <Grid RowDefinitions="Auto,*">
+                            <HorizontalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,8">
+                                <Label Text="Country by Battery Share" FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="#e2e8f0"
+                                        Padding="0"
+                                        WidthRequest="18"
+                                        HeightRequest="18"
+                                        HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        StrokeShape="Ellipse"
+                                        ToolTipProperties.Text="{Binding CountryPieInfoTooltip}">
+                                    <Label Text="i" FontAttributes="Bold" FontSize="12" TextColor="#065f46" Padding="0,0,0,3" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Border>
+                            </HorizontalStackLayout>
+                            <chart:SfCircularChart  Grid.Row="1" x:Name="CountryPieChart" Margin="0,24,0,0">
                                 <chart:PieSeries ItemsSource="{Binding TopCountries}" 
                                                  ShowDataLabels="True" 
                                                  EnableTooltip="False" 
