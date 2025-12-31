@@ -342,7 +342,7 @@ public class MainPageViewModel : INotifyPropertyChanged
         SelectedContinent = selectedContinent ?? string.Empty;
         CountryPieInfoTooltip = string.IsNullOrWhiteSpace(SelectedContinent)
             ? "Top countries by EV battery share."
-            : $"Top countries in {SelectedContinent} by EV battery share.";
+            : $"({SelectedContinent})";
 
         if (!string.IsNullOrWhiteSpace(selectedContinent))
         {

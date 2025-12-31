@@ -249,18 +249,8 @@
                             Padding="12" StrokeShape="RoundRectangle 10">
                         <Grid RowDefinitions="Auto,*">
                             <HorizontalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,8">
-                                <Label Text="Country by Battery Share" FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
-                                <Border StrokeThickness="0"
-                                        BackgroundColor="#e2e8f0"
-                                        Padding="0"
-                                        WidthRequest="18"
-                                        HeightRequest="18"
-                                        HorizontalOptions="Start"
-                                        VerticalOptions="Center"
-                                        StrokeShape="Ellipse"
-                                        ToolTipProperties.Text="{Binding CountryPieInfoTooltip}">
-                                    <Label Text="i" FontAttributes="Bold" FontSize="12" TextColor="#065f46" Padding="0,0,0,3" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                </Border>
+                                <Label Text="Country by Battery Share " FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
+                                <Label Text="{Binding CountryPieInfoTooltip}" FontAttributes="Bold" FontSize="14" TextColor="#065f46"/>
                             </HorizontalStackLayout>
                             <chart:SfCircularChart  Grid.Row="1" x:Name="CountryPieChart" Margin="0,24,0,0">
                                 <chart:PieSeries ItemsSource="{Binding TopCountries}" 
