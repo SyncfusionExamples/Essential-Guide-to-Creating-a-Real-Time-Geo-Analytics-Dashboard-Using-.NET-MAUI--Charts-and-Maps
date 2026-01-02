@@ -281,13 +281,15 @@ public class MainPageViewModel : INotifyPropertyChanged
             .OrderByDescending(c => c.Value)
             .ToList();
 
-        var total = byContinent.Sum(c => c.Value);
-        if (total > 0)
+        if (byContinent.Count > 0)
         {
-            foreach (var c in byContinent)
+            var normalized = NormalizeToPercentages(byContinent.Select(c => c.Value));
+            for (int i = 0; i < byContinent.Count; i++)
             {
-                c.Percentage = Math.Round(c.Value / total * 100, 2);
-                c.DisplayLabel = $"{c.Continent} {c.Percentage} %";
+                var c = byContinent[i];
+                c.Value = normalized[i];
+                c.Percentage = c.Value; // keep Percentage in sync with normalized Value
+                c.DisplayLabel = $"{c.Continent} {c.Value} %";
                 ContinentShares.Add(c);
             }
             ContinentExplodeIndex = 0;
@@ -352,9 +354,11 @@ public class MainPageViewModel : INotifyPropertyChanged
                 .ToList();
 
             TopCountries.Clear();
-            foreach (var top in sameContinentLatest.Take(5))
+            var top5 = sameContinentLatest.Take(5).ToList();
+            var normalizedTop = NormalizeToPercentages(top5.Select(t => t.BatteryShare));
+            for (int i = 0; i < top5.Count; i++)
             {
-                TopCountries.Add(new TopCountryShare { Country = top.Country, Value = top.BatteryShare });
+                TopCountries.Add(new TopCountryShare { Country = top5[i].Country, Value = normalizedTop[i] });
             }
 
             var selIdx = TopCountries.Select((t, i) => new { t, i }).FirstOrDefault(x => x.t.Country == cs.Name)?.i ?? -1;
@@ -416,6 +420,42 @@ public class MainPageViewModel : INotifyPropertyChanged
     /// </summary>
     private static double RoundPct(double v) => Math.Round(v, 2);
 
+    // Normalizes a collection of raw values to percentages summing to ~100% (adjusting last slice to hit 100 exactly)
+    private static List<double> NormalizeToPercentages(IEnumerable<double> values)
+    {
+        var list = values.ToList();
+        double sum = list.Sum();
+        var result = new List<double>(list.Count);
+        if (sum <= 0)
+        {
+            for (int i = 0; i < list.Count; i++) result.Add(0d);
+            return result;
+        }
+
+        double running = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (i == list.Count - 1)
+            {
+                var last = Math.Round(100 - running, 2);
+                result.Add(last);
+            }
+            else
+            {
+                var p = Math.Round(list[i] / sum * 100, 2);
+                result.Add(p);
+                running += p;
+            }
+        }
+
+        var delta = Math.Round(100 - result.Sum(), 2);
+        if (Math.Abs(delta) >= 0.01 && result.Count > 0)
+        {
+            result[^1] = Math.Round(result[^1] + delta, 2);
+        }
+        return result;
+    }
+
     /// <summary>
     /// Produces a simple recommendation message based on absolute EV share and short-term growth.
     /// </summary>
@@ -455,5 +495,47 @@ public class MainPageViewModel : INotifyPropertyChanged
         storage = value;
         OnPropertyChanged(name);
         return true;
+    }
+}
+
+public class TooltipValueConverter2 : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is TopCountryShare model)
+        {
+            switch (parameter?.ToString())
+            {
+                case "Country": return model.Country;
+                case "Value": return model.Value;
+            }
+        }
+
+        return value;
+    }
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value;
+    }
+}
+
+public class TooltipValueConverter1 : IValueConverter
+{
+    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (value is ContinentShare model)
+        {
+            switch (parameter?.ToString())
+            {
+                case "Country": return model.Continent;
+                case "Value": return model.Value;
+            }
+        }
+
+        return value;
+    }
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    {
+        return value;
     }
 }

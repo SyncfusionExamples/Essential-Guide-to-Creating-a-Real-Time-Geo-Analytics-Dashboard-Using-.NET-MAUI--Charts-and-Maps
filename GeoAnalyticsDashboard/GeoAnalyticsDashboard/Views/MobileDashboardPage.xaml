@@ -15,6 +15,11 @@
         <local:MainPageViewModel />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <local:TooltipValueConverter1 x:Key="tooltipValueConverter1"/>
+        <local:TooltipValueConverter2 x:Key="tooltipValueConverter2"/>
+    </ContentPage.Resources>
+
     <Grid>
         <ScrollView Orientation="Vertical">
             <VerticalStackLayout Spacing="16" Padding="0,4,0,0">
@@ -99,14 +104,25 @@
                         <Label Text="Continent by Batttery Share" FontAttributes="Bold" 
                                FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
                         <chart:SfCircularChart x:Name="ContinentPieChart" Margin="0,24,0,0" HeightRequest="{OnPlatform Android=250, iOS=270}">
+                            <chart:SfCircularChart.Resources>
+                                <DataTemplate x:Key="tooltipTemplate">
+                                    <Label x:DataType="chart:TooltipInfo" Text="{Binding Item, Converter={StaticResource tooltipValueConverter1}, ConverterParameter='Value',StringFormat='{0:F2} %'}" 
+                                                Background ="#065f46"  FontSize="12" TextColor="White" />
+                                </DataTemplate>
+                            </chart:SfCircularChart.Resources>
                             <chart:PieSeries ItemsSource="{Binding ContinentShares}" 
-                                             ShowDataLabels="True" EnableTooltip="False" 
+                                             ShowDataLabels="True" EnableTooltip="True" 
                                              XBindingPath="Continent" YBindingPath="Value" 
+                                             TooltipTemplate="{StaticResource tooltipTemplate}"
                                              LabelContext="Percentage" EnableAnimation="True" 
                                              PaletteBrushes="{Binding CustomBrushes}" 
                                              ExplodeIndex="{Binding ContinentExplodeIndex}" ExplodeRadius="10">
                                 <chart:PieSeries.DataLabelSettings>
-                                    <chart:CircularDataLabelSettings UseSeriesPalette="False" LabelPlacement="Outer" SmartLabelAlignment="Shift" />
+                                    <chart:CircularDataLabelSettings  UseSeriesPalette="False" SmartLabelAlignment="Shift" >
+                                        <chart:CircularDataLabelSettings.LabelStyle>
+                                            <chart:ChartDataLabelStyle LabelFormat="0.00'%'" />
+                                        </chart:CircularDataLabelSettings.LabelStyle>
+                                    </chart:CircularDataLabelSettings>
                                 </chart:PieSeries.DataLabelSettings>
                             </chart:PieSeries>
                             <chart:SfCircularChart.Legend>
@@ -250,16 +266,25 @@
                                         <Label Text="{Binding CountryPieInfoTooltip}" FontAttributes="Bold" FontSize="14" TextColor="#065f46"/>
                                     </HorizontalStackLayout>
                                     <chart:SfCircularChart Grid.Row="1" x:Name="CountryPieChart" Margin="0,24,0,0">
+                                        <chart:SfCircularChart.Resources>
+                                            <DataTemplate x:Key="tooltipTemplate">
+                                                <Label x:DataType="chart:TooltipInfo" Text="{Binding Item, Converter={StaticResource tooltipValueConverter2}, ConverterParameter='Value',StringFormat='{0:F2} %'}" 
+                                                Background ="#065f46"  FontSize="12" TextColor="White" />
+                                            </DataTemplate>
+                                        </chart:SfCircularChart.Resources>
                                         <chart:PieSeries ItemsSource="{Binding TopCountries}" 
-                                                         ShowDataLabels="True" EnableTooltip="False" 
+                                                         ShowDataLabels="True" EnableTooltip="True" 
                                                          XBindingPath="Country" YBindingPath="Value" 
+                                                         TooltipTemplate="{StaticResource tooltipTemplate}"
                                                          LabelContext="Percentage" EnableAnimation="True" 
                                                          PaletteBrushes="{Binding CustomBrushes}" 
                                                          ExplodeIndex="{Binding CountryExplodeIndex}" ExplodeRadius="10">
                                             <chart:PieSeries.DataLabelSettings>
-                                                <chart:CircularDataLabelSettings UseSeriesPalette="False" 
-                                                                                 LabelPlacement="Outer" 
-                                                                                 SmartLabelAlignment="Shift" />
+                                                <chart:CircularDataLabelSettings  UseSeriesPalette="False" SmartLabelAlignment="Shift" >
+                                                    <chart:CircularDataLabelSettings.LabelStyle>
+                                                        <chart:ChartDataLabelStyle LabelFormat="0.00'%'" />
+                                                    </chart:CircularDataLabelSettings.LabelStyle>
+                                                </chart:CircularDataLabelSettings>
                                             </chart:PieSeries.DataLabelSettings>
                                         </chart:PieSeries>
                                         <chart:SfCircularChart.Legend>
