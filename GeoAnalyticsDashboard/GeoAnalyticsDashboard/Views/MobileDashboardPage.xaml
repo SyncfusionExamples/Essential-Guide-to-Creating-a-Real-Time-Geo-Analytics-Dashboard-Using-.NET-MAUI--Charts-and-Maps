@@ -101,7 +101,7 @@
 
                 <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="8" StrokeShape="RoundRectangle 10">
                     <Grid>
-                        <Label Text="Continent by Batttery Share" FontAttributes="Bold" 
+                        <Label Text="Top Continents by Battery Share" FontAttributes="Bold" 
                                FontSize="14" TextColor="#065f46" Margin="0,0,0,8"/>
                         <chart:SfCircularChart x:Name="ContinentPieChart" Margin="0,24,0,0" HeightRequest="{OnPlatform Android=250, iOS=270}">
                             <chart:SfCircularChart.Resources>
@@ -262,7 +262,7 @@
                             <Border Stroke="#bbf7d0" StrokeThickness="1" BackgroundColor="#f0fdf4" Padding="12" StrokeShape="RoundRectangle 10">
                                 <Grid RowDefinitions="Auto,*">
                                     <HorizontalStackLayout Grid.Row="0" Spacing="6" Margin="0,0,0,8">
-                                        <Label Text="Country by Battery Share " FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
+                                        <Label Text="Top Countries by Battery Share " FontAttributes="Bold" FontSize="14" TextColor="#065f46" />
                                         <Label Text="{Binding CountryPieInfoTooltip}" FontAttributes="Bold" FontSize="14" TextColor="#065f46"/>
                                     </HorizontalStackLayout>
                                     <chart:SfCircularChart Grid.Row="1" x:Name="CountryPieChart" Margin="0,24,0,0">
