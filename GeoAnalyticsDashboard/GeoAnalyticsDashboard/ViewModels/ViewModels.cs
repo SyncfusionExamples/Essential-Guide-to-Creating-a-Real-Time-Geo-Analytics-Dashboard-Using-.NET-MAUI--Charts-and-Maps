@@ -11,7 +11,7 @@ namespace GeoAnalyticsDashboard;
 /// observable series and collections consumed by Syncfusion Maps/Charts, tracks selection state,
 /// computes YoY growth and powertrain mix, and provides commands to toggle insights/trend views.
 /// </summary>
-public class MainPageViewModel : INotifyPropertyChanged
+public class DashboardViewModel : INotifyPropertyChanged
 {
     /// <summary>
     /// Latest-year country snapshot list used by the map and selection panel.
@@ -178,7 +178,7 @@ public class MainPageViewModel : INotifyPropertyChanged
     /// Initializes the view model, sets a custom color palette, begins CSV loading,
     /// and wires commands for toggling Insights/Trend/Continent views.
     /// </summary>
-    public MainPageViewModel()
+    public DashboardViewModel()
     {
         CustomBrushes = new List<Brush>();
         CustomBrushes.Add(new SolidColorBrush(Color.FromArgb("#064e3b")));

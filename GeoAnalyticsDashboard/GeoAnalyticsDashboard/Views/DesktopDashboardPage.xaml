@@ -6,7 +6,7 @@
     xmlns:map="clr-namespace:Syncfusion.Maui.Maps;assembly=Syncfusion.Maui.Maps"
     xmlns:chart="clr-namespace:Syncfusion.Maui.Toolkit.Charts;assembly=Syncfusion.Maui.Toolkit"
     xmlns:local="clr-namespace:GeoAnalyticsDashboard"
-    x:DataType="local:MainPageViewModel"
+    x:DataType="local:DashboardViewModel"
     Background="#F1F8E9"
     Padding="16">
 
@@ -16,7 +16,7 @@
     </ContentPage.Resources>
 
     <ContentPage.BindingContext>
-        <local:MainPageViewModel/>
+        <local:DashboardViewModel/>
     </ContentPage.BindingContext>
 
     <ScrollView Orientation="Vertical">

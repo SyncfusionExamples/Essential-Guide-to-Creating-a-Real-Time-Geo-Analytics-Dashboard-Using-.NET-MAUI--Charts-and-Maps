@@ -1,6 +1,4 @@
 using Syncfusion.Maui.Maps;
-using Syncfusion.Maui.Toolkit.BottomSheet;
-using System.Threading.Tasks;
 
 namespace GeoAnalyticsDashboard.Views
 {
@@ -9,7 +7,7 @@ namespace GeoAnalyticsDashboard.Views
         public MobileDashboardPage()
         {
             InitializeComponent();
-            var vm = new MainPageViewModel();
+            var vm = new DashboardViewModel();
             BindingContext = vm;
             MobileShapeLayer.ShapesSource = MapSource.FromResource("GeoAnalyticsDashboard.Resources.Raw.world-map.json");
 
@@ -37,7 +35,7 @@ namespace GeoAnalyticsDashboard.Views
 
         private void MapShapeLayer_SelectionChanged(object sender, ShapeSelectedEventArgs e)
         {
-            if (BindingContext is MainPageViewModel vm && e.DataItem is CountryAdoptionSnapshot cs)
+            if (BindingContext is DashboardViewModel vm && e.DataItem is CountryAdoptionSnapshot cs)
             {
                 // Block selection for countries with no EV data (both shares are zero)
                 if (cs.BatteryShare <= 0 && cs.PlugInShare <= 0)

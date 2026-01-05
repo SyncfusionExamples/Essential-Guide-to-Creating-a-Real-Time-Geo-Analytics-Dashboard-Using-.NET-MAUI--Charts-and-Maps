@@ -12,7 +12,7 @@
     Padding="16">
 
     <ContentPage.BindingContext>
-        <local:MainPageViewModel />
+        <local:DashboardViewModel />
     </ContentPage.BindingContext>
 
     <ContentPage.Resources>
