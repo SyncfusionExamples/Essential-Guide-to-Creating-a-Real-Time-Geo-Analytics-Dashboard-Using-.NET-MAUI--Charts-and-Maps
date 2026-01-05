@@ -44,7 +44,7 @@ Two‑column, two‑row Grid layout:
   - Purpose: Show regional distribution of Battery EV adoption.
   - Highlights: Pie chart with percentage labels and legend.
 
-![GeoAnalyticsDashboardFinalDemo](https://github.com/user-attachments/assets/47b4414d-4b38-4d87-a8d8-673d19fc8808)
+![GeoAnalyticsDashboard_4eAaKTqXZJ](https://github.com/user-attachments/assets/1875909a-8831-4a5d-bc40-b900f62bc98e)
 
 ## Troubleshooting
 
