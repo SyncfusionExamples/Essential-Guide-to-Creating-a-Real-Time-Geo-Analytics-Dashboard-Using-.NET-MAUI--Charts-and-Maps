@@ -50,4 +50,4 @@ Two‑column, two‑row Grid layout:
 
 - If you are facing a path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.Path too long exception when building this example project, close Visual Studio and rename the repository to a shorter name before building the project.
 
-Refer to the blog for step‑by‑step guidance on creating a [Geo Analytics Dashboard using Syncfusion® .NET MAUI Charts and  Maps.](https://www.syncfusion.com/blogs/post/geo-analytics-dashboard-dotnet-maui)
+Refer to the blog for step‑by‑step guidance on creating a [Geo Analytics Dashboard using Syncfusion® .NET MAUI Charts and Maps.](https://www.syncfusion.com/blogs/post/geo-analytics-dashboard-dotnet-maui)
